@@ -45,11 +45,11 @@
 \newpage
 \section{Questions}
 \small
-1. We wish to set all pixels that have a value of 10 or less to 0, to remove camera
+\textbf{1. We wish to set all pixels that have a value of 10 or less to 0, to remove camera
 sensor noise. However, our code is slow when run on a database with 1000
-grayscale images.
+grayscale images.}
 
-(a) How could we speed it up? Please include your code.
+\textbf{(a) How could we speed it up? Please include your code.}
 
 From the CSC-414 Python Tutorial: 
 "Since NumPy is an extension for Python that is written in C, NumPy operations are faster than
@@ -60,53 +60,137 @@ as possible. It is best to avoid using for loops whenever possible; one can atta
 performance improvements through vectorization and logical indexing."
 
 % --- my answer ---
-% \lstinputlisting[language=Python]{one.py}
-
-\begin{lstlisting}[frame=single,language=Python,caption=Logical Indexing of Greyscale Image\label{code:Grayscale}]
-# start the timer
-start = time.time()
+\begin{lstlisting}[frame=single,language=Python,caption=Slower For Loops with Greyscale Image\label{code:grayscale_slow}]
+import time
+import skimage
+from skimage import io
+import numpy as np
+import matplotlib.pyplot as plt
+from skimage import img_as_float32
+import sys
 
 def process(file):
   A = io.imread(file)
   (m1,n1) = A.shape
-  
-  plt.imshow(A)
-  plt.show()
-  
-  # logical indexing to set values less than 10 to 0
-  B = A < 80
-  A[B] = 0
-  
-  # display the image after changes
-  plt.imshow(A)
-  plt.show()
-  
-  # stop the timer and display elapse time to modify image
-  end = time.time()
-  print("total time: "+str(end - start))
+  for i in range(m1):
+    for j in range(n1):
+      if A[i,j] <= 10 :
+        A[i,j] = 0
 
-# read the image
+start = time.time()
 for file in sys.argv[1:]:
   process(file)
+end = time.time()
+print("total time: "+str(end - start))
 \end{lstlisting}
+\newpage
+\begin{lstlisting}[frame=single,language=Python,caption=Logical Indexing with Greyscale Image\label{code:grayscale_fast}]
+import time
+import skimage
+from skimage import io
+import numpy as np
+import matplotlib.pyplot as plt
+from skimage import img_as_float32
+import sys
 
+def process(file):
+  A = io.imread(file)
+  (m1,n1) = A.shape
+  B = A < 10
+  A[B] = 0
 
-
+start = time.time()
+for file in sys.argv[1:]:
+  process(file)
+end = time.time()
+print("total time: "+str(end - start))
+\end{lstlisting}
 
 (b) What factor speedup would we receive over 1000 images? Please measure it
 and include your code
 % --- my answer ---
 
-
-
-
+\begin{lstlisting}[frame=single,language=Bash,caption=Command Line Performance Testing\label{code:performance_grayscale}]
+gabe@dean:~/CSC-414_Project0$ python3 slow_gry.py dog.png 
+  grizzlypeakg.png heads.png mona_lisa.png yucca.png 
+total time: 5.245616674423218
+gabe@dean:~/CSC-414_Project0$ python3 fast_gry.py dog.png 
+  grizzlypeakg.png heads.png mona_lisa.png yucca.png 
+total time: 0.0711512565612793
+\end{lstlisting}
+\[
+  speedup = 5.245616674423218 / 0.0711512565612793
+\]
+\[
+  speedup = 73.724863452
+\]
+\newpage
 (c) Next, we wish to operate on color images. How does your speeded-up version
 from 1 (a) change for color images? Please implement and measure it, report
 the speed factor change, and include your code.
 % --- my answer ---
 
-The speed factor doesn't change for color images because it is the same 
-as operating on three separate images per image. 
+\begin{lstlisting}[frame=single,language=Python,caption=Slower For Loops with Color Image\label{code:color_slow}]
+import time
+import skimage
+from skimage import io
+import numpy as np
+import matplotlib.pyplot as plt
+from skimage import img_as_float32
+import sys
+
+def process(file):
+  A = io.imread(file)
+  (m1,n1,k1) = A.shape
+  for i in range(m1):
+    for j in range(n1):
+      for k in range(k1):
+        if A[i,j,k] <= 10 :
+          A[i,j,k] = 0
+
+start = time.time()
+for file in sys.argv[1:]:
+  process(file)
+end = time.time()
+print("total time: "+str(end - start))
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[frame=single,language=Python,caption=Logical Indexing with Color Image\label{code:color_fast}]
+import time
+import skimage
+from skimage import io
+import numpy as np
+import matplotlib.pyplot as plt
+from skimage import img_as_float32
+import sys
+
+def process(file):
+  A = io.imread(file)
+  (m1,n1,k1) = A.shape
+  B = A < 10
+  A[B] = 0
+  
+start = time.time()
+for file in sys.argv[1:]:
+  process(file)
+end = time.time()
+print("total time: "+str(end - start))
+\end{lstlisting}
+
+\begin{lstlisting}[frame=single,language=Bash,caption=Command Line Performance Testing\label{code:performance_grayscale}]
+gabe@dean:~/CSC-414_Project0$ python3 slow_rgb.py grizzlypeak.jpg 
+  total time: 11.221831321716309
+gabe@dean:~/CSC-414_Project0$ python3 fast_rgb.py grizzlypeak.jpg 
+total time: 0.08472013473510742
+  gabe@dean:~/CSC-414_Project0$ 
+\end{lstlisting}
+\[
+  speedup = 11.221831321716309 / 0.08472013473510742
+\]
+\[
+  speedup = 132.457666135
+\]
+We conclude that Color images get more speedup than Grayscale images since 132 is greater than 72.
 
 \newpage
 \textbf{2. Suppose we wish to reduce the brightness of an image by editing the values in its
@@ -122,7 +206,7 @@ is subtracted from pixel values less than 50, the result is a negative value,
 which is an error. To prevent this from happening, two separate operations should
 be performed: 
   1) pixels with a value that is less than 50 should be set to zero
-  2) 50 should be subtracted from pixels with a value that is >= 50
+  2) 50 should be subtracted from pixels with a value that is greater than or equal to 50.
 
 \end{document}
 
