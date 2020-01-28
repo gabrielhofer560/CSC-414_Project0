@@ -22,9 +22,10 @@ https://www.overleaf.com/learn/latex/Code_listing
 PYTHON LIBRARY INSTALLATION STUFF
 https://scikit-image.org/docs/dev/install.html
 
+
+
 $ sudo apt install python3-pip
 $ pip3 install scikit-image
-
-
+$ sudo apt-get install python3-matplotlib
 
 
