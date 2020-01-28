@@ -13,16 +13,12 @@ def process(file):
   A = io.imread(file)
   (m1,n1) = A.shape
   
-  plt.imshow(A)
-  plt.show()
-  
   # logical indexing to set values less than 10 to 0
-  B = A < 80
-  A[B] = 0
-  
-  # display the image after changes
-  plt.imshow(A)
-  plt.show()
+  (m1,n1) = A.shape
+  for i in range(m1):
+    for j in range(n1):
+      if A[i,j] <= 80 :
+        A[i,j] = 0
   
   # stop the timer and display elapse time to modify image
   end = time.time()
