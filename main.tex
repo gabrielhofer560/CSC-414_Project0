@@ -1,13 +1,66 @@
 \documentclass[12pt]{article}
- 
+% You are to submit a single .pdf file with your solutions. The file should have a header
+% that clearly outlines: 
+% your name, 
+% the course, 
+% the project number, 
+% and the due date.
+%
+%
+%------------------------------------------------------------------------------------
 \begin{document}
-\title{Project 0: Using Python for Image Manipulation}%replace with the appropriate homework number
-\author{Gabriel Hofer} 
-\maketitle
+\begin{titlepage}
+   \begin{center}
+       \vspace*{1cm}
+       \large
+       \textbf{Project 0: Using Python for Image Manipulation}
+       \normalsize
+       \vspace{0.5cm}
+       \textbf{Author: Gabriel Hofer}
+       \vspace{0.5cm}
+       CSC-414 Introduction to Computer Vision
+       \vspace{0.5cm}
+       Instructor: Dr. Hoover
+       \vspace{0.5cm}
+       Due: January 27, 2020
+       \vfill
+       Department: Computer Science and Engineering\\
+       University: South Dakota School of Mines and Technology\\
+   \end{center}
+\end{titlepage}
+%------------------------------------------------------------------------------------
 
 
+\newpage
+\section{Questions}
+1. We wish to set all pixels that have a value of 10 or less to 0, to remove camera
+sensor noise. However, our code is slow when run on a database with 1000
+grayscale images.
 
+(a) How could we speed it up? Please include your code.
+% --- my answer ---
 
-\pagebreak
+(b) What factor speedup would we receive over 1000 images? Please measure it
+and include your code
+% --- my answer ---
+
+(c) Next, we wish to operate on color images. How does your speeded-up version
+from 1 (a) change for color images? Please implement and measure it, report
+the speed factor change, and include your code.
+% --- my answer ---
+
+\newpage
+2. Suppose we wish to reduce the brightness of an image by editing the values in its
+matrix. But, when trying to visualize the result, we see some “errors”.
+
+(a) What is incorrect with this approach? How can it be fixed while maintaining
+the same intended brightness reduction? Please include your code and result
+image.
+% --- my answer ---
+
 
 \end{document}
+
+
+
+

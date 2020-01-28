@@ -14,5 +14,8 @@ https://www.bogotobogo.com/python/OpenCV_Python/python_opencv3_Image_Global_Thre
 
 FOR LATEX
 https://www.sharelatex.com/templates/examples/basic-homework-template
+https://tex.stackexchange.com/questions/9852/what-is-the-difference-between-page-break-and-new-page
+
+
 
 
