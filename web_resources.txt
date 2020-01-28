@@ -15,6 +15,15 @@ https://www.bogotobogo.com/python/OpenCV_Python/python_opencv3_Image_Global_Thre
 FOR LATEX
 https://www.sharelatex.com/templates/examples/basic-homework-template
 https://tex.stackexchange.com/questions/9852/what-is-the-difference-between-page-break-and-new-page
+https://www.sascha-frank.com/latex-font-size.html
+https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+https://www.overleaf.com/learn/latex/Code_listing
+
+PYTHON LIBRARY INSTALLATION STUFF
+https://scikit-image.org/docs/dev/install.html
+
+$ sudo apt install python3-pip
+$ pip3 install scikit-image
 
 
 
